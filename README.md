@@ -11,7 +11,13 @@ There's also a YouTube video that describes the process:
 
 # History
 
-This nifty script was made by several authors. Originally provided by DREDMARK, then greatly overhauled by marcuswilm in and promoted by myself in various places. Marcus was kind enough to host this scritp as a [Gist on GitGithub](https://gist.github.com/marcuswilm/c2305cd494d54b9aba80bf5f43d0f7bf). Until DAZ Studio 4.11, Version 1 of the script worked fine.
+This nifty script was made by several authors. 
+
+- originally concept provided by DREDMARK
+- then greatly overhauled by marcuswilm
+- promoted by marcuswilm and myself in various online places (since 2015)
+
+Marcus was kind enough to host this scritp as a [Gist on GitGithub](https://gist.github.com/marcuswilm/c2305cd494d54b9aba80bf5f43d0f7bf). We had quite a little discussion on that thread. Until DAZ Studio 4.11, the original version of the script worked fine.
 
 Since DAZ Studio 4.12, an update was needed, so ThePhilosopher reached out to the DAZ Community, where the script was tweaked (let me know who did it so I can give credit here). To make updates future proof, I've created this repo so we can offer releases and use pull requests and branches for community coding.
 
