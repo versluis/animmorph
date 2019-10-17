@@ -9,6 +9,10 @@ There's also a YouTube video that describes the process:
 
 [![YouTube Thumbnail](http://img.youtube.com/vi/Wz5AQ8azl4A/0.jpg)](http://www.youtube.com/watch?v=Wz5AQ8azl4A)
 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=Wz5AQ8azl4A
+" target="_blank"><img src="http://img.youtube.com/vi/Wz5AQ8azl4A/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="800" height="360" border="10" /></a>
+
 # History
 
 This nifty script was made by several authors. Originally provided by DREDMARK, then greatly overhauled by marcuswilm in and promoted by myself in various places. Marcus was kind enough to host this scritp as a [Gist on GitGithub](https://gist.github.com/marcuswilm/c2305cd494d54b9aba80bf5f43d0f7bf). Until DAZ Studio 4.11, Version 1 of the script worked fine.
