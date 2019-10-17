@@ -1,6 +1,8 @@
-# animMorph Script for DAZ Studio 
+# animMorph for DAZ Studio 
 
-This script helps to import animations from Marvelous Designer into DAZ Studio. I've explained the whole process in these articles:
+This script creates keyframe animations from an OBJ Morph Sequence in DAZ Studio. It reads the OBJ sequence, then creates one morph per frame using Morph Loader, enabling each moprh at the necessary frame. We've used this script successfully to importing cloth drape animations from Marvelous Designer. 
+
+I've explained the process in these articles:
 
 - [Exporting Animations from DAZ Studio for use in Marvelous Designer](https://www.versluis.com/2015/03/how-to-export-animations-from-daz-studio-for-use-in-marvelous-designer/)
 - [Importing Marvelous Designer animations into DAZ Studio](https://www.versluis.com/2015/03/how-to-export-garment-animations-from-marvelous-designer-for-use-in-daz-studio/)
