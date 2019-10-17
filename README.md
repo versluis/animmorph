@@ -1,4 +1,4 @@
-# animMorhp Script for DAZ Studio 
+# animMorph Script for DAZ Studio 
 
 This script helps to import animations from Marvelous Designer into DAZ Studio. I've explained the whole process in these articles:
 - https://www.versluis.com/2015/03/how-to-export-animations-from-daz-studio-for-use-in-marvelous-designer/
