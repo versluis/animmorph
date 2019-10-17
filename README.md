@@ -24,7 +24,7 @@ Since DAZ Studio 4.12, an update was needed, so ThePhilosopher reached out to th
 # Usage
 To keep it simple, I've added both versions into this repo. Pick either the DS411 or the DS412 version (for DAZ Studio 4.11 or 4.12 respectively). Download the file, then save it into the scripts folder in your DAZ Studio library. Head over to the Content Library tab and execute it.
 
-- [Download for DAZ Studio 4.11 or lower](https://raw.githubusercontent.com/versluis/animmorph/master/animMorph-DS411.dsa)
-- [Download for DAZ Studio 4.12](https://raw.githubusercontent.com/versluis/animmorph/master/animMorph-DS411.dsa)
+- [Download for DAZ Studio 4.11](https://raw.githubusercontent.com/versluis/animmorph/master/animMorph-DS411.dsa) or lower
+- [Download for DAZ Studio 4.12](https://raw.githubusercontent.com/versluis/animmorph/master/animMorph-DS412.dsa) and maybe higher
 
 More details and license coming soon :-)
