@@ -1,6 +1,6 @@
 # animMorph for DAZ Studio 
 
-This script creates keyframe animations from an OBJ Morph Sequence in DAZ Studio. It reads the OBJ sequence, then creates one morph per frame using Morph Loader, enabling each moprh at the necessary frame. We've used this script successfully to importing cloth drape animations from Marvelous Designer. 
+This script creates keyframe animations from an OBJ Morph Sequence in DAZ Studio. It reads the OBJ sequence, then creates one morph per frame using Morph Loader, enabling each moprh at the necessary frame. We've used this script successfully to import cloth drape animations from Marvelous Designer. 
 
 I've explained the process in these articles:
 
