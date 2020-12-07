@@ -32,8 +32,8 @@ This script is released under the Creative Commons 1.0 license.
 # History
 This nifty script was made by several authors:
 
-- originally concept provided by DREDMARK
-- then greatly overhauled by marcuswilm
+- original concept provided by DREDMARK
+- thereafter greatly overhauled by marcuswilm
 - promoted by marcuswilm and myself in various online places (since 2015)
 
 Since the original online sources for the script have been discontinued, Marcus was kind enough to host this script as [this Gist on GitHub](https://gist.github.com/marcuswilm/c2305cd494d54b9aba80bf5f43d0f7bf). We had quite a nice discussion on that thread, please check it out. Gists are not great for community coding so I've moved the project over here. 
