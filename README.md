@@ -16,14 +16,15 @@ While it was designed with Marvelous Designer animations in mind, the script wil
 
 # Usage
 
-- download the animMorph.zip file from the Releases Section
+- [download the latest version](https://github.com/versluis/animmorph/releases/download/1.1/animMorph-414.zip) - works in DAZ Studio 4.11, 4.12 and 4.14
 - unpack the folder and copy it into your DAZ Studio Scripts folder
 - (by default that's C:\Users\Public Documents\My DAZ 3D Library\Scripts). 
 - import the first OBJ in the sequence and select it
 - head over to Edit - Object - Morph Loader Pro
-- select all other OBJs in the sequence (all exept the first one you've already loaded)
+- select all other OBJs in the sequence (except the first one you've already loaded)
 - run the script for your DAZ Studio version
-- [Download the latet version](https://github.com/versluis/animmorph/releases/download/1.1/animMorph-414.zip) - works in DAZ Studio 4.11, 4.12 and 4.14
+- take a look at the timeline and see one keyframe at every frame, changing your object in the viewport
+
 
 # License
 This script is released under the Creative Commons 1.0 license. 
