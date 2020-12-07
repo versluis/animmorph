@@ -1,0 +1,4 @@
+// animMorph Script for DAZ Studio
+var sPath = MainWindow.getPaneMgr().findPane("DzContentLibraryPane").getSelectedContainer().getFullPath();
+App.showURL("file:///" + sPath + "/License.txt");
+// App.showURL("https://github.com/versluis/animmorph");
