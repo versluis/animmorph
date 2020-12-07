@@ -1,0 +1,12 @@
+LICENSE
+=======
+
+This asset is published under the CC0 1.0 license as Public Domain. 
+
+What does the CC0 1.0 license mean? In short:
+The person who associated a work with this deed has dedicated the work to the public domain by waiving all of his or her rights to the work worldwide under copyright law, including all related and neighbouring rights, to the extent allowed by law.
+
+You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. 
+
+For more information about the CC0 1.0 license please visit 
+https://creativecommons.org/publicdomain/zero/1.0/
