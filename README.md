@@ -23,7 +23,7 @@ While it was designed with Marvelous Designer animations in mind, the script wil
 - head over to Edit - Object - Morph Loader Pro
 - select all other OBJs in the sequence (all exept the first one you've already loaded)
 - run the script for your DAZ Studio version
-- [Download the latet version](https://raw.githubusercontent.com/versluis/animmorph/master/animMorph-DS411.dsa)
+- [Download the latet version](https://github.com/versluis/animmorph/releases/download/1.1/animMorph-414.zip) - works in DAZ Studio 4.11, 4.12 and 4.14
 
 # License
 This script is released under the Creative Commons 1.0 license. 
