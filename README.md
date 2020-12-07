@@ -11,7 +11,8 @@ There's also a YouTube video that describes the process:
 [![YouTube Thumbnail](http://img.youtube.com/vi/Wz5AQ8azl4A/0.jpg)](http://www.youtube.com/watch?v=Wz5AQ8azl4A)
 
 # What this does
-animMorph helps import an OBJ sequence into DAZ Studio and turns it into an animation. An OBJ sequence is a series of standalone static 3D files in OBJ format. DAZ Studio does not natively support this format. However, we can use all OBJs in the sequence to create as many morphs as there are objects. animMoprh then sets each morph active for a single frame, so that a seamless animation can be played back. While it was designed with Marvelous Designer animations in mind, it will work for any OBJ sequence.
+animMorph helps import an OBJ sequence into DAZ Studio and turns it into an animation. An OBJ sequence is a series of standalone static 3D files that DAZ Studio does not natively support. However, we can import all OBJs in the sequence to create as many morphs as there are objects using the built-in Morph Loader tool. animMoprh then sets each morph active for a single frame, so that a seamless animation can be played back. 
+While it was designed with Marvelous Designer animations in mind, the script will work for any OBJ sequence.
 
 # Usage
 
