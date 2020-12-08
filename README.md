@@ -6,9 +6,9 @@ I've explained the process in these articles:
 - [Exporting Animations from DAZ Studio for use in Marvelous Designer](https://www.versluis.com/2015/03/how-to-export-animations-from-daz-studio-for-use-in-marvelous-designer/)
 - [Importing Marvelous Designer animations into DAZ Studio](https://www.versluis.com/2015/03/how-to-export-garment-animations-from-marvelous-designer-for-use-in-daz-studio/)
 
-There's also a YouTube video that describes the process:
+There's also a video that describes the process:
 
-[![YouTube Thumbnail](http://img.youtube.com/vi/Wz5AQ8azl4A/0.jpg)](http://www.youtube.com/watch?v=Wz5AQ8azl4A)
+[![YouTube Thumbnail](http://img.youtube.com/vi/UYqlxnpJ6JY/0.jpg)](https://www.youtube.com/watch?v=UYqlxnpJ6JY)
 
 # What this does
 animMorph helps import an OBJ sequence into DAZ Studio and turns it into an animation. An OBJ sequence is a series of standalone static 3D files that DAZ Studio does not natively support. However, we can import all OBJs in the sequence to create as many morphs as there are objects using the built-in Morph Loader tool. animMoprh then sets each morph active for a single frame, so that a seamless animation can be played back. 
