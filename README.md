@@ -16,7 +16,7 @@ While it was designed with Marvelous Designer animations in mind, the script wil
 
 # Usage
 
-- [download the latest version](https://github.com/versluis/animmorph/releases/download/1.1/animMorph-414.zip) - works in DAZ Studio 4.11, 4.12, 4.14 and 4.15
+- [download the latest version](https://github.com/versluis/animmorph/releases/download/1.2/animMorph-415.zip) - works in DAZ Studio 4.11, 4.12, 4.14 and 4.15
 - unpack the folder and copy it into your DAZ Studio Scripts folder
 - (by default that's C:\Users\Public Documents\My DAZ 3D Library\Scripts). 
 - import the first OBJ in the sequence and select it
