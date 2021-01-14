@@ -1,5 +1,5 @@
 # animMorph for DAZ Studio 
-This script creates keyframe animations from an OBJ Morph Sequence in DAZ Studio. It reads the OBJ sequence, then creates one morph per frame using Morph Loader, enabling each moprh at the necessary frame. We've used this script successfully to import cloth drape animations from Marvelous Designer. Tested with Marvelous Designer 10 and DAZ Studio 4.14 (December 2020).
+This script creates keyframe animations from an OBJ Morph Sequence in DAZ Studio. It reads the OBJ sequence, then creates one morph per frame using Morph Loader, enabling each moprh at the necessary frame. We've used this script successfully to import cloth drape animations from Marvelous Designer. Tested with DAZ Studio 4.15 and various OBJ Sequences, including those from Marvelous Designer 10 (January 2021).
 
 I've explained the process in these articles:
 
@@ -16,7 +16,7 @@ While it was designed with Marvelous Designer animations in mind, the script wil
 
 # Usage
 
-- [download the latest version](https://github.com/versluis/animmorph/releases/download/1.1/animMorph-414.zip) - works in DAZ Studio 4.11, 4.12 and 4.14
+- [download the latest version](https://github.com/versluis/animmorph/releases/download/1.1/animMorph-414.zip) - works in DAZ Studio 4.11, 4.12, 4.14 and 4.15
 - unpack the folder and copy it into your DAZ Studio Scripts folder
 - (by default that's C:\Users\Public Documents\My DAZ 3D Library\Scripts). 
 - import the first OBJ in the sequence and select it
@@ -40,6 +40,6 @@ Since the original online sources for the script have been discontinued, Marcus 
 
 Up until DAZ Studio 4.11, the original version of the script worked fine. Since DAZ Studio 4.12, an update was needed. ThePhilosopher reached out to the DAZ Community, where the script was tweaked (we're not sure by whom, please let me know if you do so I can give credit here). 
 
-Currently three versions are included with this package. Note that the 4.12 and 4.14 versions are identical and simply duplicated for clairty.
+Currently three versions are included with this package. Note that the 4.12-4.15 versions are identical and simply duplicated for clairty.
 
 THANK YOU for everyone who made this project possible :-)
