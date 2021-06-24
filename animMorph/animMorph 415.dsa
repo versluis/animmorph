@@ -34,6 +34,14 @@
  A programmer can NEVER predict everything.
 
  You may use this script for every purposes. No copyright is bound to my contribution.
+
+Changes - 2021-06-24
+  - Add sliders to choose start and end frame. As a consequence, the script no longer uses the morph count for the default values but the active play range. A maximum of 1000 frames has been set for the slider to be usable.
+  - Add a morph filter by prefix. Any morph with a name that starts with the prefix will be used.
+  - The operation is now cancellable. It is possible to cancel the operation by (long) pressing the <ESC> key.
+    - As a side effect, the operation now shows the active frame and the applied morph during its execution
+  - UI cleanup.
+  
   
 ********************************************************************************************************************************/
 
@@ -59,7 +67,7 @@ var nSpacing = 10;
 
 var wDlgRTP = new DzDialog;							  // it is the Dialog Box which contains the RichTextPad
 wDlgRTP.caption = "My Little Debugger :-)";					  // :-)
-wDlgRTP.paletteBackgroundColor = clrBKD 					  // the background has a light blue color
+//wDlgRTP.paletteBackgroundColor = clrBKD 					  // the background has a light blue color
 wDlgRTP.sizeGripEnabled = 1; 							  // Dialog Box is resizable by the user (grip is on Bottom Right)
 
 var wDlgRTPLyt = new DzVBoxLayout( wDlgRTP );				          // Layout of this Dialog Box
@@ -79,7 +87,7 @@ wRichTxt.pointSize = 8;								  // the value 8 seems to be a good size for the 
 *****************************************************************/
 
 var wDlg = new DzDialog;							  // it is the Dialog Box to interact with the user
-wDlg.paletteBackgroundColor = clrBKD ;						  // the background has a light blue color		
+//wDlg.paletteBackgroundColor = clrBKD ;						  // the background has a light blue color		
 wDlg.caption = "ANIMATION WITH A SEQUENCE OF MORPHS - DAZ Studio 4.x Pro" ;
 
 var wDlgLyt = new DzVBoxLayout( wDlg );						  // Layout of this Dialog Box					
@@ -91,9 +99,39 @@ var wComment = new DzGroupBox( wDlg );						  // to store a comment in this Dial
 
 wComment.title = "This script is inspired by a script " 
  + "that DREDMARK published in Marvelous Designer's Forum";
+var wCmtLyt = new DzVBoxLayout( wComment );						  // Layout of this Dialog Box					
+wCmtLyt.autoAdd = true;								  // Dialog Box Container may extend automatically
+wCmtLyt.margin = nMargin;							  // to set the margin inside the Dialog Box
+wCmtLyt.spacing = nSpacing;							  // perhaps useful, not sure in this case
 
+var wLineEdit2 = new DzLabel (wComment);
 var wLineEdit1 = new DzLabel (wDlg);		  				  // initialisation of some lines in the DialogBox	
-var wLineEdit2 = new DzLabel (wDlg);
+
+var wFirstFrame = new DzIntSlider( wDlg )                       // Initialisation of the range first frame
+                                                                // Set to the current play range start frame by default
+wFirstFrame.labelVisible = true;
+wFirstFrame.label = "First frame to apply a morph to."
+wFirstFrame.max = 1000;
+wFirstFrame.min = 0;
+wFirstFrame.value = 0;
+wFirstFrame.clamped = true
+wFirstFrame.textEditable = true;
+
+var wLastFrame = new DzIntSlider( wDlg )                      // Initialisation of the range last frame
+                                                                // Set to the current play range end frame by default
+wLastFrame.labelVisible = true;
+wLastFrame.label = "Last frame - May expand animation range."
+wLastFrame.max = 1000;
+wLastFrame.min = 0;
+wLastFrame.value = 0;
+wLastFrame.clamped = true
+wLastFrame.textEditable = true;
+
+var wMorphPrefixLabel = new DzLabel (wDlg);                     // Morph filter. Any morph with a name starting with
+                                                                // the typed text will be used. Leave empty for all morphs
+wMorphPrefixLabel.text = "(Optional) Prefix for morph filtering. Leave empty for all morphs." ;
+var wMorphPrefix = new DzLineEdit( wDlg ) ;
+
 var wLineEdit3 = new DzLabel (wDlg);
 var wLineEdit4 = new DzLabel (wDlg);
 
@@ -105,7 +143,7 @@ var oNode = Scene.getPrimarySelection();
 
 if( ! oNode ){									  // the warning message if the user forgot to select the Object
 	MessageBox.information( "Please select an Object in the Scene",
-      "NOTHING IS SELECTED", "&Click this button to continue" ) 
+      "No selection", "&Ok" ) 
 }
  
 /***************************************************** 
@@ -116,16 +154,12 @@ var i, j, k; 									  // iterators for the main function
 var oObject = oNode.getObject();			  			  // to locate the Selected Object
 var oNodeLabel = oNode.getLabel();			  			  // to get the Label of the Selected Object
 var nModifiers = oObject.getNumModifiers();  					  // to get the number of morphs loaded for this object
-var oModifier = undefined;							  // to find and get the Object Modifiers
 
 var mgr = MainWindow.getActionMgr();						  // to get the available actions in Daz Studio 4 Pro's Window
-var nLastFrame = oObject.getNumModifiers() ;   					  // the Last Frame of the animation = the number of Loaded Morphs
 var nTimeStep = Scene.getTimeStep();		      				  // the Time Step applied by Daz Studio : a value of 160 is awaited 
 										  // please read comment #1 at the end of this script
-var oTimeRange =  DzTimeRange(0, nTimeStep * nLastFrame); 		          // to determine the Time Range to apply to the Scene
-
-Scene.setAnimRange( oTimeRange );						  // Animation Range : the number of frames = the Sequence of Morphs + 1 
-var nFirstFrame = Scene.getAnimRange().start / nTimeStep;			  // to determine the first frame : a value of 0 is awaited
+var nFirstFrame = Scene.getPlayRange().start / nTimeStep;			  // The first frame of the animation play range
+var nLastFrame = Scene.getPlayRange().end / nTimeStep ;   		  // the Last Frame of the animation play range
   					
 wRichTxt.append ("Time Step = " + nTimeStep);					  // Output to help for debugging	
 wRichTxt.append ("First Frame = " + nFirstFrame);
@@ -137,26 +171,27 @@ wRichTxt.append ("Last Frame = " + nLastFrame);
 /***************************************************************************************
  Output of comments and instructions in the DialogBox with the user
 ***************************************************************************************/
-wLineEdit1.text = "You selected this object : "+ oNodeLabel ;
-wLineEdit2.text = "if valid, the sequence of morphs "
-+ "will be used to create an animation for your selection";
-wLineEdit3.text = "The animation starts on frame [ " 
-+ nFirstFrame + " ] and ends on frame [ " + nLastFrame + " ]";
-wLineEdit4.text = "If you don't want to proceed, please click on CANCEL"; 
+wLineEdit1.text = "You selected this object : "+ oNodeLabel;
+wLineEdit2.text = "The sequence of morphs "
++ "will be used to create an animation for your selected figure";
+wFirstFrame.value = nFirstFrame;
+wLastFrame.value = nLastFrame;
+wLineEdit3.text = "You may press the <ESC> key at any time during the operation to cancel it.";
+wLineEdit4.text = "If you don't want to proceed, please click the CANCEL button."; 
 
 var wDlgAcceptCancel = new DzGroupBox( wDlg );				              // creation of the Group Accept / Cancel 
 wDlgAcceptCancel.flat = true;							      // Daz Script Sample "Widget Test" in the DOC was very useful :-)
 var wDlgBtnsLyt = new DzGridLayout( wDlgAcceptCancel );
 var wAcceptBtn = new DzPushButton( wDlgAcceptCancel );
-wAcceptBtn.text = "&ACCEPT = PROCEED";
+wAcceptBtn.text = "ACCEPT = PROCEED";
 wAcceptBtn.minWidth = 100;
-wAcceptBtn.minHeight = 80;
+wAcceptBtn.minHeight = 40;
 wDlg.setAcceptButton( wAcceptBtn );
 wDlgBtnsLyt.addWidget( wAcceptBtn, 0, 2 );
 var wCancelBtn = new DzPushButton( wDlgAcceptCancel );
-wCancelBtn.text = "&CANCEL = DON'T PROCEED";
+wCancelBtn.text = "CANCEL = DON'T PROCEED";
 wCancelBtn.minWidth = 100;
-wCancelBtn.minHeight = 80;
+wCancelBtn.minHeight = 40;
 wDlg.setRejectButton( wCancelBtn );
 wDlgBtnsLyt.addWidget( wCancelBtn, 0, 3 );
 
@@ -179,10 +214,22 @@ if( wDlg.exec() )								      // the user clicked on the "ACCEPT = PROCEED" but
 
 function load_morphs()											
 { 
+  nFirstFrame = wFirstFrame.value ;
+  nLastFrame = wLastFrame.value ;
+  namePrefix = wMorphPrefix.text ;
+
+  var currentTimeRange = Scene.getAnimRange() ;
+  var oTimeRange =  DzTimeRange(0, nTimeStep * nLastFrame); 		          // to determine the Time Range to apply to the Scene
+  
+  currentTimeRange.include(oTimeRange);               // Make sure the new range includes the selected range
+
+  Scene.setAnimRange( currentTimeRange );						  // Animation Range : the maximum of the current range and the selected end frame.
+
+  
 	n = mgr.getNumActions();
        for( i = 0; i < n; i++ ){
             oAction = mgr.getAction( i );					      // Daz Manager Actions are scanned sequentially
-            print(oAction.text);
+            //print(oAction.text);
          wRichTxt.append ( oAction.text + ": " +  i );  			      // script line for debugging purpose
       
       sActionText = oAction.text ;
@@ -211,8 +258,8 @@ function load_morphs()
     return;
   }
 
-	oStepNextFrame = mgr.getAction(nActionNextFrame);  			      //   The Action "Step to Next Frame" (DzNextFrameAction) is identified
-	oCreateKeyFrame = mgr.getAction(nActionAddKeys); 			      //   The Action "Create KeyFrame" (AddKeysAction) is identified
+	oStepNextFrame = mgr.getAction(nActionNextFrame); //   The Action "Step to Next Frame" (DzNextFrameAction) is identified
+	oCreateKeyFrame = mgr.getAction(nActionAddKeys); 	//   The Action "Create KeyFrame" (AddKeysAction) is identified
 	
   	 				 
 	
@@ -221,29 +268,73 @@ function load_morphs()
 	 This algorithm is executing a very tedious task
 	 ***********************************************************/
 	beginUndo();
-	Scene.setFrame (0) ;							      // Frame #0 is created (no other step required for this frame)
-	oCreateKeyFrame.trigger();						      // Parameters of the selected Object are recorded in this frame
+	Scene.setFrame (nFirstFrame) ;							      // We position the animation on the first selected Frame 
+	//oCreateKeyFrame.trigger();						            // Parameters of the selected Object are recorded in this frame
 	
-	for( i = 1; i <= nLastFrame  ; i++){					      // The iterative process of this algorithm is controlled by the variable i
-										      // The variable i is incremented by 1 unit with each iteration until its value reaches the Last Frame's value
-	oStepNextFrame.trigger (i) ;						      // The first action is to move to the next frame in the animation
-	
-    j = i - 1 ;									      // The variable j is used to locate the Morph in position (i-1) in the sequence of Morphs
-	k = i - 2 ;								      // The variable k is used to locate the Morph in position (i-2) in the sequence of Morphs
+  oCurrentModifier = oObject.getModifier(0);        // We initialize the first morph attached to the object
+  oPreviousModifier = null;                         // this variable holds the previously recorded morph to reset its value on the next iteration
+  
+  var j = 0;                                        // The starting index of the modifier search
+ 
+	// Define whether or not the user can cancel
+	var bCancellable = true;
+  
+  // Start the progress
+	startBackgroundProgress( "Creating frames for morph animation.", nLastFrame-nFirstFrame+1, bCancellable );
 
-		if ( i >= 2) {												 
-										      // The variable k starts playing its role when frame #2 is reached
-		oModifier = oObject.getModifier(k);				      // oModifier gets the Modifier #k in the sequence of Morphs
-		oModifier.getValueChannel().setValue(0);			      // The Morph #k recorded in the previous frame is reset to 0 (0%) to disable its useless interpolation 
-		}
-										      // This last part of the algorithm is executed for each frame ranging from 1 to the end of the animation
-	oModifier = oObject.getModifier(j);					      // oModifier gets the Modifier #j in the sequence of Morphs
-	oModifier.getValueChannel().setValue(1);				      // The Morph #j is set to 1 (= 100%) 
-																
-	Scene.setFrame (i);							      // The Morphs #j and #k are recorded in each frame #i within the iteration
-	oCreateKeyFrame.trigger();						      // THAT'S THE MAGIC ACTION !  Without this action, this script would be a nonsense,
-										      // because simply "moving to the next step" enables the interpolation process between the morphs				
+  
+  
+	for( i = 0; i <= nLastFrame - nFirstFrame ; i++){					      // The iterative process of this algorithm is controlled by the variable i
+                                                      // The variable i is incremented by 1 unit with each iteration until its value reaches the Last Frame's value
+    
+    // If we have defined a prefix to filter morphs, we check if the modifier satisfies the filter
+    while (null != oCurrentModifier && !oCurrentModifier.getName().startsWith(namePrefix) && j < oObject.getNumModifiers()) {
+      j++;                                            // If not, we increase the modifier index
+      oCurrentModifier = oObject.getModifier(j);      // and we get the corresponding modifier
+    }
+    
+    if (null == oCurrentModifier || !oCurrentModifier.getName().startsWith(namePrefix)) {
+      MessageBox.critical( "Not enough usable morphs to animate the required frames.",
+        "Unrecoverable error", "&Ok" ) 
+    } else {
+    
+      if ( null != oPreviousModifier) {												 
+        oPreviousModifier.getValueChannel().setValue(0);			  // The Morph recorded in the previous frame is reset to 0 (0%) to disable its useless interpolation 
+      }
+                            // This last part of the algorithm is executed for each frame ranging from 0 to the end of the animation
+                            
+      oPreviousModifier = oCurrentModifier ;            // Store the modifier to reset its value in the next frame
+      oCurrentModifier.getValueChannel().setValue(1);				  // The Morph #j is set to 1 (= 100%) 
+                                    
+      Scene.setFrame (nFirstFrame + i);							                  // The Morphs #j and #k are recorded in each frame #i within the iteration
+      oCreateKeyFrame.trigger();						            // THAT'S THE MAGIC ACTION !  Without this action, this script would be a nonsense,
+                                                        // because simply "moving to the next step" enables the interpolation process between the morphs				
+      j++ ;                                             // Prepare for the next frame
+      oCurrentModifier = oObject.getModifier(j);				// oCurrentModifier gets the Modifier #j in the sequence of Morphs
+      oStepNextFrame.trigger (i) ;						          // The last action is to move to the next frame in the animation
+      
+      // If the user is allowed to cancel
+      if( bCancellable ){
+        // Process events so that we can check user interaction
+        processEvents();
+   
+        // If the user cancelled
+        if( App.isKeySequenceDown( "Esc" ) ){
+          // Post a status update
+          App.statusLine( "User cancelled morph animation." );
+          // We are done...
+          // Finish the progress
+          finishBackgroundProgress();
+          return;
+        }
+      }
+    
+      App.statusLine( "Morph animation :" + i + "/" + (nLastFrame-nFirstFrame+1) );
+    
+    }
 	}
+  // Finish the progress
+  finishBackgroundProgress();
   acceptUndo('Animorph');
 }
 //______________________________________________________________________________________________________________________________________________________________________________
